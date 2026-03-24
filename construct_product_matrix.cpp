@@ -37,7 +37,7 @@ vector<vector<int>> product(vector<vector<int>> & grid){
 
 }
 int main(){
-    vector<vector<int>> grid={{1,2},{3,4}};
+    vector<vector<int>> grid={{12345},{2},{1}};
 
     vector<vector<int>> result=product(grid);
 
