@@ -16,8 +16,8 @@ public:
 
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
-                 int original=mat[i][j];
-                 int shift_max;
+                int original=mat[i][j];
+                int shift_max;
                 if(i%2==0){
                    
                     shift_max=mat[i][(j+shift)%cols];
@@ -25,7 +25,7 @@ public:
                 }
                 else{
                     
-                     shift_max=mat[i][(j-shift)%cols + cols];
+                    shift_max=mat[i][(j-shift)%cols + cols];
                     if(original!=shift_max) return false;
                 }
             }
