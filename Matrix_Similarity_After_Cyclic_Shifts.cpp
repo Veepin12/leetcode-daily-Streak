@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -11,6 +12,7 @@ public:
         int cols=mat[0].size();
 
         int shift=(k%cols);
+        if(shift%2==0) return true;
 
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
@@ -18,7 +20,7 @@ public:
                  int shift_max;
                 if(i%2==0){
                    
-                     shift_max=mat[i][(j+shift)%cols];
+                    shift_max=mat[i][(j+shift)%cols];
                     if(original!=shift_max) return false;
                 }
                 else{
@@ -28,13 +30,13 @@ public:
                 }
             }
         }
-        return false;
+        return true;
         
     }
 };
 int main(){
     Solution S;
-    vector<vector<int>> mat={{2,2},{2,2}};
-    cout<<S.areSimilar(mat,3)<<endl;
+    vector<vector<int>> mat={{1,2,3},{4,5,6},{7,8,9}};
+    cout<<S.areSimilar(mat,4)<<endl;
     return 0;
 }
