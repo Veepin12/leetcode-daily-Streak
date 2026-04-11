@@ -21,11 +21,31 @@ public:
         }
         return (ans==INT_MAX)? -1: ans;
     }
+    
+    int MinimumDistance(vector<int> & nums){
+        int n=nums.size();
+        int mindist=INT_MAX;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                for(int k=j+1;k<n;k++){
+                    if(nums[i]==nums[j] && nums[j]==nums[k]){
+                        int dist = abs(i-j) + abs(j-k) + abs(k-i);
+                        mindist=min(mindist,dist);
+
+                        
+
+                    }
+                }
+            }
+        }
+        return (mindist==INT_MAX) ? -1: mindist;
+    }
 };
 int main(){
     vector<int> nums={1,2,1,1,3};
     Solution S;
     cout<<S.minimumDistance(nums);
+    cout<<S.MinimumDistance(nums);
 
     return 0;
 }
