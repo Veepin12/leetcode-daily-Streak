@@ -47,7 +47,8 @@ public:
         visited[0][0] = true;
 
         while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
+            auto [r, c] = q.front(); 
+            q.pop();
 
             if (r == m-1 && c == n-1) return true;
 
