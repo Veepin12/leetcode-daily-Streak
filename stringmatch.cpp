@@ -25,16 +25,27 @@ Output: false
 #include <iostream>
 using namespace std;
 
-class Solution {
+class solution {
 public:
     bool rotateString(string s, string goal) {
         return s.size() == goal.size() && (s + s).find(goal) != -1;
+    }
+};
+class Solution {
+public:
+    bool RotateString(string s, string goal) {
+        if (s.size() != goal.size()) return false;
+        for (int i = 0; i < s.size(); i++) {
+            if (s == goal) return true;
+            s = s.substr(1) + s[0];
+        }
+        return false;
     }
 };
 int main(){
     string s = "abcde";
     string goal = " cdeab";
     Solution S;
-    cout<<S.rotateString(s,goal)<<endl;
+    cout<<S.RotateString(s,goal)<<endl;
     return 0;
 }
