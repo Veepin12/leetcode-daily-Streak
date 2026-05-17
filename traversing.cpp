@@ -32,6 +32,10 @@ bool bfs( vector<int> nums, int start){
     return false;
 }
 int main(){
+    //Input: arr = [4,2,3,0,3,1,2], start = 0
+    //Output: true
+
+    
 
     vector<int> nums =  {3,0,2,1,2};
     cout<<bfs(nums,2);
