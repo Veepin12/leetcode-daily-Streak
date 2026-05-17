@@ -11,7 +11,7 @@ public:
         int end = nums.size() - 1;
 
         while( nums[start] >= nums[end]){
-            int mid  = start + (end + start) / 2;
+            int mid  = start + (end - start) / 2;
 
             if( nums[start] == nums[mid] && nums[mid] == nums[end]){
                return *min_element(nums.begin() + start, nums.begin() + end);
