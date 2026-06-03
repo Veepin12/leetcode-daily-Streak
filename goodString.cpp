@@ -4,7 +4,7 @@ using namespace std;
 class Solution {
     public:
      
-    int goodstring( string & word){
+    int numberOfSpecialChars( string & word){
         unordered_set<char> st( word.begin() , word.end());
         int ans = 0;
         for( char c = 'a' ; c <= 'z' ; c++){
@@ -15,7 +15,7 @@ class Solution {
         return ans;
     }
     
-    int numberOfSpecialChars(string word) {
+    int numberOfSpecialChars1(string word) {
         int lastLower[26], firstUpper[26];
         fill(lastLower, lastLower+26, -1);
         fill(firstUpper, firstUpper+26, INT_MAX);
@@ -40,7 +40,7 @@ int main(){
 
     getline( cin , s);
 
-    cout<<S.goodstring( s);
-    cout<<S.numberOfSpecialChars(s)<<endl;
+    cout<<S.numberOfSpecialChars( s);
+    cout<<S.numberOfSpecialChars1(s)<<endl;
     return 0;
 }
