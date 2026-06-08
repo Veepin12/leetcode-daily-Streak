@@ -1331,3 +1331,107 @@ Thus, the score of n is 2.
 Constraints:
 
 1 <= n <= 109
+
+# Queation 29
+Maximum Number of Items From Sale I
+Medium
+5 pt.
+You are given a 2D integer array items, where items[i] = [factori, pricei] represents the ith item. You are also given an integer budget.
+
+There are unlimited copies of each item available for purchase.You may buy any number of copies of any items such that the total cost of the purchased copies is at most budget.
+
+After buying items, you may receive free copies according to the following rules:
+
+For each item i that you bought at least one copy of, you receive one free copy of every item j such that j != i and factori divides factorj.
+Buying multiple copies of the same item i does not give additional free copies through item i.
+The same item j can be received multiple times for free if it is received from purchases of different item types.
+Return the maximum total number of item copies you can obtain, including both purchased copies and free copies, while spending at most budget on purchased items.
+
+ 
+
+Example 1:
+
+Input: items = [[6,2],[2,6],[3,4]], budget = 9
+
+Output: 4
+
+Explanation:
+
+You can buy 2 copies of item 0 and 1 copy of item 2 for a total cost of 2 * 2 + 4 = 8, which is not greater than budget = 9.
+Buying item 2 gives 1 free copy of item 0, because factor2 = 3 divides factor0 = 6.
+You leave with 3 purchased copies and 1 free copy, for a total of 4 item copies.
+Example 2:
+
+Input: items = [[2,4],[3,2],[4,1],[6,4],[12,4]], budget = 8
+
+Output: 10
+
+Explanation:
+
+You can buy 1 copy of item 0, 1 copy of item 1, and 2 copies of item 2 for a total cost of 4 + 2 + 2 * 1 = 8.
+Buying item 0 gives 1 free copy of items 2, 3, and 4.
+Buying item 1 gives 1 free copy of items 3 and 4.
+Buying item 2 gives 1 free copy of item 4.
+Thus, you receive 6 free copies. You leave with 4 purchased copies and 6 free copies, for a total of 10 item copies.
+ 
+
+Constraints:
+
+1 <= items.length <= 1000
+items[i] = [factori, pricei]
+1 <= factori, pricei <= 1500
+1 <= budget <= 1500
+
+# question 30
+Maximum Number of Items From Sale II
+Medium
+5 pt.
+You are given a 2D integer array items, where items[i] = [factori, pricei] represents the ith item. You are also given an integer budget.
+
+There are unlimited copies of each item available for purchase. You may buy any number of copies of any items such that the total cost of the purchased copies is at most budget.
+
+After buying items, you may receive free copies according to the following rules:
+
+Each purchased copy of item i can give you at most one free copy of another item j.
+The free item must satisfy i != j and factori divides factorj.
+For each ordered pair (i, j), you can receive a free copy of item j from purchases of item i at most once, regardless of how many copies of item i you buy.
+The same item j can be received multiple times for free if it is received from purchases of different item types.
+Return the maximum total number of item copies you can obtain, including both purchased copies and free copies, while spending at most budget on purchased items.
+
+ 
+
+Example 1:
+
+Input: items = [[1,6],[2,4],[3,5]], budget = 19
+
+Output: 5
+
+Explanation:
+
+You can buy 2 copies of item 0 and 1 copy of item 1 for a total cost of 2 * 6 + 4 = 16, which is not greater than budget = 19.
+One purchased copy of item 0 gives 1 free copy of item 1, because factor0 = 1 divides factor1 = 2.
+The other purchased copy of item 0 gives 1 free copy of item 2, because factor0 = 1 divides factor2 = 3.
+You leave with 3 purchased copies and 2 free copies, for a total of 5 item copies.
+Example 2:
+
+Input: items = [[2,8],[1,10],[6,6],[4,12],[5,20],[5,17]], budget = 35
+
+Output: 7
+
+Explanation:
+
+You can buy 2 copies of item 0, 1 copy of item 1, and 1 copy of item 2 for a total cost of 2 * 8 + 10 + 6 = 32, which is not greater than budget = 35.
+One purchased copy of item 0 gives 1 free copy of item 2, because factor0 = 2 divides factor2 = 6.
+The other purchased copy of item 0 gives 1 free copy of item 3, because factor0 = 2 divides factor3 = 4.
+The purchased copy of item 1 gives 1 free copy of item 2, because factor1 = 1 divides factor2 = 6.
+Buying item 2 gives no free copy, because factor2 = 6 does not divide the factor of any other item.
+You leave with 4 purchased copies and 3 free copies, for a total of 7 item copies.
+ 
+
+Constraints:
+
+1 <= items.length <= 105
+items[i] = [factori, pricei]
+1 <= factori <= items.length
+1 <= pricei <= 109
+1 <= budget <= 109
