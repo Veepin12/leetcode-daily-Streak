@@ -9,14 +9,11 @@ public:
         long long ans = INT_MIN;
        
         
-            for( int i = 0; i < n; i++) diff1 = min( diff1 , nums[i]);
+        for( int i = 0; i < n; i++) diff1 = min( diff1 , nums[i]);
                 
-            for( int i = 0; i < n; i++) diff2 = max( diff2 , nums[i]);
+        for( int i = 0; i < n; i++) diff2 = max( diff2 , nums[i]);
 
-            ans = max((int) ans , diff2 - diff1);
-           
-
-        
+        ans = max((int) ans , diff2 - diff1);
         return ans * k;
 
 
@@ -25,8 +22,13 @@ public:
 };
 int main(){
     Solution S;
-    vector<int> nums = { 4 , 2, 5, 1};
-    int k = 3;
+    int n ;
+    cin>>n;
+    vector<int> nums(n);
+
+    for( int i = 0; i < n ; i++) cin>>nums[i];
+    int k ;
+    cin>>k;
     cout<<S.maxTotalValue( nums , k)<<endl;
     return 0;
 }
