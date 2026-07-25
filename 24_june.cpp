@@ -6,6 +6,7 @@ public:
     int valid_array( int n , int l , int r){
 
         vector<int> ans;
+        ans.clear();
 
         for( int i = min(l , r); i <= max( l ,r); i++){
             
