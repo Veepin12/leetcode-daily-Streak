@@ -44,17 +44,44 @@ using namespace std;
 
 class Solution{
     public:
+
+    
     
     string op( vector<int> & nums){
 
         int n = nums.size();
 
-        
+        vector<int> dp(  n + 1, 0);
+        for( int i = n - 1; i >= 0 ; i--){
+            int sum = 0;
+            dp[i] = INT_MIN;
+
+            for( int k = 1; k <= 3 && i + k <= n; k++){
+                sum += nums[i + k - 1];
+                dp[i] = max( dp[i] , sum - dp[ i + k ]);
+            }
+        }
+        if(dp[0] > 0) return "Alice";
+        if(dp[0] < 0) return "Bob";
+        return "tie";  
 
     }
 
 
 };
 int main(){
+
+    int n;
+    cin>>n;
+    vector<int> nums(n);
+
+    for( int i = 0; i < n; i++){
+        cin>>nums[i];
+    }
+
+    Solution S;
+
+    cout<<S.op(nums);
+
     return 0;
 }
