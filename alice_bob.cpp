@@ -1,78 +1,75 @@
-
 /*
-Alice and Bob continue their games with piles of stones. There are several stones arranged in a row, and each stone has an associated value which is an integer given in the array stoneValue.
+Alice and Bob play a game with piles of stones. There are an even number of piles arranged in a row, and each pile has a positive integer number of stones piles[i].
 
-Alice and Bob take turns, with Alice starting first. On each player's turn, that player can take 1, 2, or 3 stones from the first remaining stones in the row.
+The objective of the game is to end with the most stones. The total number of stones across all the piles is odd, so there are no ties.
 
-The score of each player is the sum of the values of the stones taken. The score of each player is 0 initially.
+Alice and Bob take turns, with Alice starting first. Each turn, a player takes the entire pile of stones either from the beginning or from the end of the row. This continues until there are no more piles left, at which point the person with the most stones wins.
 
-The objective of the game is to end with the highest score, and the winner is the player with the highest score and there could be a tie. The game continues until all the stones have been taken.
-
-Assume Alice and Bob play optimally.
-
-Return "Alice" if Alice will win, "Bob" if Bob will win, or "Tie" if they will end the game with the same score.
+Assuming Alice and Bob play optimally, return true if Alice wins the game, or false if Bob wins.
 
  
 
 Example 1:
 
-Input: stoneValue = [1,2,3,7]
-Output: "Bob"
-Explanation: Alice will always lose. Her best move will be to take three piles and the score become 6. Now the score of Bob is 7 and Bob wins.
+Input: piles = [5,3,4,5]
+Output: true
+Explanation: 
+Alice starts first, and can only take the first 5 or the last 5.
+Say she takes the first 5, so that the row becomes [3, 4, 5].
+If Bob takes 3, then the board is [4, 5], and Alice takes 5 to win with 10 points.
+If Bob takes the last 5, then the board is [3, 4], and Alice takes 4 to win with 9 points.
+This demonstrated that taking the first 5 was a winning move for Alice, so we return true.
 Example 2:
 
-Input: stoneValue = [1,2,3,-9]
-Output: "Alice"
-Explanation: Alice must choose all the three piles at the first move to win and leave Bob with negative score.
-If Alice chooses one pile her score will be 1 and the next move Bob's score becomes 5. In the next move, Alice will take the pile with value = -9 and lose.
-If Alice chooses two piles her score will be 3 and the next move Bob's score becomes 3. In the next move, Alice will take the pile with value = -9 and also lose.
-Remember that both play optimally so here Alice will choose the scenario that makes her win.
-Example 3:
-
-Input: stoneValue = [1,2,3,6]
-Output: "Tie"
-Explanation: Alice cannot win this game. She can end the game in a draw if she decided to choose all the first three piles, otherwise she will lose.
+Input: piles = [3,7,2,3]
+Output: true
  
 
 Constraints:
 
-1 <= stoneValue.length <= 5 * 104
--1000 <= stoneValue[i] <= 1000
+2 <= piles.length <= 500
+piles.length is even.
+1 <= piles[i] <= 500
+sum(piles[i]) is odd.
 */
 #include <iostream>
 using namespace std;
 
-class Solution{
+class Solution {
     public:
 
-    
-    
-    string op( vector<int> & nums){
+    bool op( vector<int> & nums){
 
         int n = nums.size();
 
-        vector<int> dp(  n + 1, 0);
-        for( int i = n - 1; i >= 0 ; i--){
-            int sum = 0;
-            dp[i] = INT_MIN;
-
-            for( int k = 1; k <= 3 && i + k <= n; k++){
-                sum += nums[i + k - 1];
-                dp[i] = max( dp[i] , sum - dp[ i + k ]);
+        vector<int> dp( n + 1, 0);
+        int alice = 0;
+        int bob = 0;
+        
+        for( int i = 0 ; i < n; i++){
+            if( i % 2 == 0) {
+                bob += nums[i];
+                dp[i] = bob;
             }
+            else{
+                alice += nums[i];
+                dp[i] = alice;
+            }
+
+        
+            
+
         }
-        if(dp[0] > 0) return "Alice";
-        if(dp[0] < 0) return "Bob";
-        return "tie";  
+        return dp[ n - 1] > dp[ n - 2] ? true : false;
 
     }
-
-
+    
 };
 int main(){
 
     int n;
     cin>>n;
+
     vector<int> nums(n);
 
     for( int i = 0; i < n; i++){
@@ -80,8 +77,6 @@ int main(){
     }
 
     Solution S;
-
-    cout<<S.op(nums);
-
+    cout<<S.op(nums)<<endl;
     return 0;
 }
