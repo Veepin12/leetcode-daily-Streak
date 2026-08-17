@@ -1,25 +1,124 @@
+//
+//  stone_Game_V.cpp
+//  DSA_with_Cpp
+//
+//  Created by Veepin_Chaudhary on 10/08/26.
+//
+/*
+ Alice and Bob take turns playing a game, with Alice starting first.
+
+ Initially, there are n stones in a pile. On each player's turn, that player makes a move consisting of removing any non-zero square number of stones in the pile.
+
+ Also, if a player cannot make a move, he/she loses the game.
+
+ Given a positive integer n, return true if and only if Alice wins the game otherwise return false, assuming both players play optimally.
+
+  
+
+ Example 1:
+
+ Input: n = 1
+ Output: true
+ Explanation: Alice can remove 1 stone winning the game because Bob doesn't have any moves.
+ Example 2:
+
+ Input: n = 2
+ Output: false
+ Explanation: Alice can only remove 1 stone, after that Bob removes the last one winning the game (2 -> 1 -> 0).
+ Example 3:
+
+ Input: n = 4
+ Output: true
+ Explanation: n is already a perfect square, Alice can win with one move, removing 4 stones (4 -> 0).
+  
+
+ Constraints:
+
+ 1 <= n <= 105
+ */
+
+
 #include <iostream>
+#include <algorithm>
+#include <vector>
+
 using namespace std;
+
+
+
 class Solution {
-    public:
-    int id = 0;
-     vector<int> dp = {18,28,0,37,1,34,5,3,3,7,7,20,304,330,268772,39,1103936,2609483,3469558,2910539,3163719,2570668,5143519,4982169,5633485,4097085,4022310,13063290,8972806,7926980,7634880,15003360,3211344,10909762,13300155,17489223,12982100,10628509,13215119,13990286,15099402,15174629,10509892,16024062,10178142,14828555,16172562,17106765,15540696,17774574,20519541,18888394,19573540,19444109,19537110,14653573,21851237,15788949,20501367,41857608,23966022,23920939,150003,30923552,27069365,8123310,25731129,28101275,31595481,29380901,16895816,25251620,28185896,29446596,30666149,26490695,33921090,33248653,34160758,37902181,32910921,30864253,27361338,32523970,33461781,33253288,34434546,33894260,38672312,37775198,39030318,38205351,37408879,35688289,42688360,44145416,62927766,42836052,41120185,38751535,35811625,40114990,42704500,42115153,44065273,45437630,47042365,42935449,49410868,69964312,43298585,44520467,45598393,51405952,44908154,50054445,97,23163347,9033330,97000000,60755475,9033330,58349856,73183410,240469317,190284037,217056728,224201491,235230292,251457577,1205175,494000000};
-    int stoneGameV(vector<int> & s) { return dp[id++]; }
-};
-int main(){
+    int dp[501][501];
+    int prefix[501];
 
-    Solution S;
+    int solve( vector<int>& stoneValue, int left, int right) {
+        // Base case: only one stone left, Alice gets 0 score.
+        if (left == right) return 0;
+        
+        // Return already computed result
+        if (dp[left][right] != -1) return dp[left][right];
 
-    int n;
-    cin>>n;
+        int max_score = 0;
+        
+        // Try all possible split points between 'left' and 'right'
+        for (int i = left; i < right; i++) {
+            // Calculate sum of the left and right rows using prefix sum
+            int left_sum = prefix[i + 1] - prefix[left];
+            int right_sum = prefix[right + 1] - prefix[i + 1];
 
-    
-    vector<int> s(n);
-
-    for( int i = 0; i < n; i++){
-        cin>>s[i];
+            if (left_sum < right_sum) {
+                // Bob throws away the right row, Alice gets left_sum + max score from left row
+                max_score = max(max_score, left_sum + solve(stoneValue, left, i));
+            } else if (left_sum > right_sum) {
+                // Bob throws away the left row, Alice gets right_sum + max score from right row
+                max_score = max(max_score, right_sum + solve(stoneValue, i + 1, right));
+            } else {
+                // Sums are equal, Bob lets Alice decide. We test both choices to maximize her score.
+                max_score = max({max_score,
+                                 left_sum + solve(stoneValue, left, i),
+                                 right_sum + solve(stoneValue, i + 1, right)});
+            }
+        }
+        
+        return dp[left][right] = max_score;
     }
 
-    cout<<S.stoneGameV(s);
+public:
+    int stoneGameV(vector<int>& stoneValue) {
+        long n = stoneValue.size();
+        
+        // Initialize DP table with -1
+        for(int i = 0; i <= n; i++) {
+            for(int j = 0; j <= n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        
+        // Build prefix sum array for O(1) range sum queries
+        prefix[0] = 0;
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + stoneValue[i];
+        }
+        
+        return solve(stoneValue, 0,(int) n - 1);
+    }
+};
+
+
+
+int main(){
+    int n ;
+    cin>>n;
+    vector<int> stones(n);
+    
+    for( int i = 0; i < n; i++){
+        cin>>stones[i];
+    }
+    
+    Solution S;
+    //  [6,2,3,4,5,5]
+    
+    
+    cout<<S.stoneGameV( stones)<<endl;
+    
     return 0;
 }
