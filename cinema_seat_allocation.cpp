@@ -32,16 +32,16 @@ public:
                 
         int middle_mask = 240;
                 
-        for (auto const& [row, mask] : row_map) {
+        for (auto const& mask : row_map) {
             // Since this row has reserved seats, subtract the 2 families we initially assumed
             max_families -= 2;
             
             // Check if both left and right blocks are completely free
-            if ((mask & left_mask) == 0 && (mask & right_mask) == 0) {
+            if ((mask.second & left_mask) == 0 && (mask.second & right_mask) == 0) {
                 max_families += 2;
             }
             // Otherwise, check if at least ONE of the blocks (left, middle, or right) is free
-            else if ((mask & left_mask) == 0 || (mask & middle_mask) == 0 || (mask & right_mask) == 0) {
+            else if ((mask.second & left_mask) == 0 || (mask.second & middle_mask) == 0 || (mask.second & right_mask) == 0) {
                 max_families += 1;
             }
             // If none are free, we add 0 families for this row.
