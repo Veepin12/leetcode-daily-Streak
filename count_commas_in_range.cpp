@@ -42,18 +42,18 @@ class Solution {
 public:
     int countCommas(int n) {
         if( n < 1000) return 0;
-        
         int res = 0;
-
         if( n == 1000) return 1;
-
-       
         for( int i  = 1000 ; i <= n; i++){
             res++;
         }
         return res;
         
         
+    }
+
+    int v2(  int n){
+        return n >= 1000 ? n - 1000 + 1: 0;
     }
 };
 int main(){
@@ -62,5 +62,6 @@ int main(){
     cin>>n;
     Solution S;
     cout<<S.countCommas(n)<<endl;
+    cout<<S.v2(n)<<endl;
     return 0;
 }
