@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution{
@@ -17,11 +19,9 @@ public:
                 if( i == j) continue;
                 if( nums[i] + nums[j] == target && nums[i] > nums[j]){
 
-                    int val = nums[i]* nums[j];
+                    int val = nums[i] * nums[j];
                     if( ! found  &&  val > product){
                         product = val;
-                       
-
                         ans = {i , j};
                         found = true;
 
